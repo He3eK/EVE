@@ -1,51 +1,53 @@
-# SENTRY v2.7: Mining Ops Console
+# 🛰️ SENTRY v2.7.3: Mining Ops Console
+> **The definitive Ship Management & Threat Detection HUD for EVE Online.**
 
-**The definitive Ship Management & Threat Detection HUD for EVE Online.**
+---
 
 ## 🚦 Priority Color Legend
-
-The background color of the console provides instant status recognition. **Priority 1** overrides all other colors.
+The console uses "Mood Lighting" for instant status recognition. **Priority 1** overrides all other states.
 
 | Priority | State | Color | Trigger |
-| --- | --- | --- | --- |
-| **1** | **COMBAT** | **Orange Strobe** | Incoming hits, outgoing drone fire, or ECM Jams. |
-| **2** | **CARGO FULL** | **Electric Cyan** | Log reports "cargo hold is full" or "docking perimeter." |
-| **3** | **IDLE** | **Blood Red** | No mining hits for 190s OR "Laser Deactivates" (Rock Popped). |
-| **4** | **ACTIVE** | **Charcoal** | Systems nominal; laser cycles in progress. |
+| :--- | :--- | :--- | :--- |
+| 🟠 **1** | **COMBAT** | **Orange Strobe** | Incoming hits, drone fire, or **ECM Jams**. |
+| 💎 **2** | **HOLD FULL** | **Electric Cyan** | Log reports "cargo hold is full" or docking. |
+| 🔴 **3** | **IDLE** | **Blood Red** | No hits for 190s OR **Active Rock Pop**. |
+| ⚫ **4** | **ACTIVE** | **Charcoal** | Systems nominal; lasers cycling. |
 
-## 🛠 Features & Intelligence
+---
 
-* **Identity Lock:** Automatically parses the `Listener:` header to identify the active **PILOT**.
-* **Active Rock Monitoring:** Instantly detects when a laser deactivates because a target is lost (Rock Popped), bypassing the 190s idle delay.
-* **ECM Awareness:** Recognizes being **Jammed** as a combat event, triggering the strobe before damage is even taken.
-* **Auto-Pause (Timer Accuracy):** Automatically pauses the session timer when cargo is full or docking begins. This ensures your **Eff (Units/Min)** represents actual time in the belt, not time spent hauling.
-* **Alt-Swap Logic:** The `RESET | SWAP` button allows seamless transition between character log files without an application restart.
+## 🛠️ Intelligence & Automation (v2.7.3)
+
+* 🚀 **Universal Rock Monitoring**
+    Instantly detects deactivation across all module types (Gaussian, Strip Miners, etc.) by watching for "resource" or "target" loss notifications.
+* 🔄 **Zero-Click Auto-Resume**
+    The session timer and HUD status automatically "wake up" the second new ore hits your cargo hold. No manual interaction required.
+* 📡 **ECM Awareness**
+    Identifies "Jammed" status as a combat event, triggering the strobe before physical damage is sustained.
+* ⏸️ **Auto-Pause (Efficiency Guard)**
+    Freezes tracking during hauling/docking to ensure your **Eff (Units/Min)** represents actual time in the belt.
+* 👤 **Pilot Identity Lock**
+    Parses the log header to display the active **PILOT** name, ensuring accuracy after an Alt-Swap.
+
+---
 
 ## 🎮 Standard Operating Procedure (SOP)
 
-### 1. The Drone Radar
+### 1️⃣ The Setup
+* Run `Sentry_v2.7.3.pyw`.
+* Ensure drones are out and set to **Aggressive / Focus Fire**.
+* Click `RESET | SWAP` when switching character clients.
 
-Always deploy drones and set them to **Aggressive / Focus Fire**. Because EVE does not log "Yellow Boxing" (locking), your drones are your early warning system. SENTRY will strobe orange the second they engage a target.
-
-### 2. Multi-Boxing Flow
-
-1. Log into your alt.
-2. Click `RESET | SWAP`.
-3. Verify the **PILOT** name updates in the header.
-4. If switching back, click the button again once you are active in the second client.
-
-### 3. Handling Alerts
-
-* **Red Window:** Your lasers have stopped. Relock a new rock and cycle.
-* **Cyan Window:** Your hold is full. Warp to station. The script has already paused your efficiency timer.
-* **Orange Strobe:** Check your drones or your shield—threats are on grid.
+### 2️⃣ The Mining Loop
+* **Undocking:** Just start your lasers. The console will turn from **Red** to **Charcoal** automatically.
+* **Full Hold:** When the window turns **Electric Cyan**, warp to station. The timer is already paused for you.
+* **Unloading:** Once back in the belt, the first successful cycle will auto-resume the HUD.
 
 ---
 
 ## 📋 Technical Requirements
-
-* **Python 3.13+**
-* **Dear PyGui 1.10.0+** (`pip install dearpygui`)
-* **Pathing:** Works with standard EVE Gamelog locations (including OneDrive).
+* **Python:** 3.13+
+* **Library:** `dearpygui` (`pip install dearpygui`)
+* **EVE Setting:** "Log to File" must be **ENABLED** in the EVE Esc-menu.
 
 ---
+*Safe flying, Pilot. Keep the lasers hot.*
