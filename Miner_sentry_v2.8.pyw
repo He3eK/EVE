@@ -193,7 +193,12 @@ with dpg.window(label="SENTRY_V2.8", tag="PrimaryWindow"):
         dpg.add_spacer(width=20)
         dpg.add_button(label="TERMINATE", callback=lambda: dpg.stop_dearpygui(), width=-1)
 
-dpg.create_viewport(title='SENTRY_V2.8', width=360, height=520)
+dpg.create_viewport(
+    title='SENTRY_V2.8',
+    width=360, height=520,
+    small_icon='Miner_sentry.ico',
+    large_icon='Miner_sentry.ico'
+)
 dpg.setup_dearpygui(); dpg.show_viewport(); dpg.set_primary_window("PrimaryWindow", True)
 dpg.set_viewport_always_top(True)
 threading.Thread(target=log_monitor, daemon=True).start()
