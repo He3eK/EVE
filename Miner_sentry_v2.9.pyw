@@ -139,7 +139,8 @@ def log_monitor():
                     if stats["start_time"] is None: stats["start_time"] = datetime.now()
                     val = int(norm_m.group(1).replace(',', ''))
                     stats["total"] += val; stats["last_hit_time"] = now
-                    stats["history"].insert(0, f"[{ts}] +{val:,} {norm_m.group(2).strip()[:10]}")
+                    stats["history"].insert(0, f"[{ts}] +{val:,} {norm_m.group(2).strip()[:20]}")
+                    # stats["history"].insert(0, f"[{ts}] +{val:,} {norm_m.group(2).strip()}")
                 elif "Critical mining success" in text and crit_m:
                     val = int(crit_m.group(1).replace(',', ''))
                     stats["total"] += val; stats["last_hit_time"] = now
@@ -164,7 +165,7 @@ def update_ui():
 
 # --- GUI ---
 dpg.create_context()
-with dpg.window(label="SENTRY_V2.7.3", tag="PrimaryWindow"):
+with dpg.window(label="SENTRY_V2.9", tag="PrimaryWindow"):
     with dpg.group(horizontal=True):
         dpg.add_text("STATUS: ACTIVE", tag="status_text", color=[0, 255, 0])
         dpg.add_spacer(width=20)
@@ -192,7 +193,12 @@ with dpg.window(label="SENTRY_V2.7.3", tag="PrimaryWindow"):
         dpg.add_spacer(width=20)
         dpg.add_button(label="TERMINATE", callback=lambda: dpg.stop_dearpygui(), width=-1)
 
-dpg.create_viewport(title='SENTRY_V2.7.3', width=360, height=520)
+dpg.create_viewport(
+    title='SENTRY_V2.9',
+    width=360, height=520
+    small_icon='Miner_sentry.ico',
+    large_icon='Miner_sentry.ico'
+                    )
 dpg.setup_dearpygui(); dpg.show_viewport(); dpg.set_primary_window("PrimaryWindow", True)
 dpg.set_viewport_always_top(True)
 threading.Thread(target=log_monitor, daemon=True).start()
